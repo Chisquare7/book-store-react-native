@@ -79,11 +79,16 @@ export default function HomeScreen({ AppState }) {
 							// 	return require (`../data/${imgUrl}`)
 							// }
 							return (
-								<TouchableOpacity key={index.id} onPress={() => handlePress(element)} accessibilityLabel="books">
+								<TouchableOpacity
+									key={index}
+									onPress={() => handlePress(element)}
+									accessibilityLabel="books"
+								>
 									<View testID="book">
 										<Image
 											source={{ uri: element.imgUrl }}
 											style={styles.bookImage}
+											
 										/>
 										<Text>{element.title}</Text>
 										<Text>{element.author}</Text>
