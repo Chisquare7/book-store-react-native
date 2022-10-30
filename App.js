@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, FlatList, Text, View, SafeAreaView } from 'react-native'
 import HomeScreen from './app/screens/HomeScreen';
 
+import AppState from './app/AppState/AppState';
+
+
 // import { useFonts } from 'expo-font';
 // import AppLoading from 'expo-app-loading';
 
@@ -28,10 +31,11 @@ export default function App() {
 
 
 
-    return (
-      <SafeAreaView style={{ flex: 1, padding: 24 }}>
-        <HomeScreen />
-      </SafeAreaView>
+  return (
+      <AppState />
+      // <SafeAreaView style={{ flex: 1, padding: 24 }}>
+      //   <HomeScreen />
+      // </SafeAreaView>
     );
  
 }
