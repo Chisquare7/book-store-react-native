@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-// import { useFonts } from "expo-font";
-// import { Inter_900Black } from "@expo-google-fonts/inter";
-// import * as SplashScreen from "expo-splash-screen";
 import {
 	StyleSheet,
 	View,
 	Text,
 	Image,
+	FlatList,
 	TouchableOpacity,
 	ScrollView,
 } from "react-native";
@@ -18,51 +16,40 @@ import GlobalHeader from "../Headers/GlobalHeader";
 export default function HomeScreen({ navigation, AppState }) {
 	const { allBooks, setAllBooks } = AppState;
 
-	const handlePress = (element) => {
-		setAllBooks(element);
+	// const handlePress = (element) => {
+	// 	setAllBooks(element);
 
-		navigation.navigate("DetailedBook", { selectedBook: bookDetails, });
-	};
-	// const [fontsLoaded] = useFonts({
-	// 	Inter_900Black,
-	// 	InterSemiBoldItalic:
-	// 		"https://rsms.me/inter/font-files/Inter-SemiBoldItalic.otf?v=3.12",
-	// 	MontserratBold: require("../app/assets/font/Montserrat-Bold.ttf"),
-	// 	MontserratRegular: require("../app/assets/font/Montserrat-Regular.ttf"),
-	// });
-
-	// useEffect(() => {
-	// 	async function prepare() {
-	// 		await SplashScreen.preventAutoHideAsync();
-	// 	}
-	// 	prepare();
-	// }, []);
-
-	// const onLayout = useCallback(async () => {
-	// 	if (fontsLoaded) {
-	// 		await SplashScreen.hideAsync();
-	// 	}
-	// }, [fontsLoaded]);
-
-	// if (!fontsLoaded) return null;
+	// 	navigation.navigate("DetailedBook", { selectedBook: allBooks, });
+	// };
+	
 
 	return (
-		<ScrollView>
-			<View style={styles.container}>
-				<GlobalHeader AppState={AppState} navigation={navigation} />
-				
+		<View style={styles.container}>
+			<GlobalHeader AppState={AppState} navigation={navigation} />
 
-				<View style={styles.body}>
-					<Text style={styles.titleText}>Welcome back!</Text>
-					<Text style={styles.subtitle}>
-						We're glad to see you just
-						<Text style={styles.subtitleIn}> 16 days</Text> after your last
-						visit and can't wait to help you find your next page turner!
-					</Text>
+			<View style={styles.body}>
+				<Text style={styles.titleText}>Welcome back!</Text>
+				<Text style={styles.subtitle}>
+					We're glad to see you just
+					<Text style={styles.subtitleIn}> 16 days</Text> after your last visit
+					and can't wait to help you find your next page turner!
+				</Text>
 
-					<View>
-						<Text style={styles.bookList}>Explore Books</Text>
-						<ScrollView horizontal={true} style={{ marginVertical: 20 }}>
+				<View>
+					<Text style={styles.bookList}>Explore Books</Text>
+					<FlatList
+						data={allBooks}
+						keyExtractor={(item, index) => item + index.toString()}
+						renderItem={({ item }) => (
+							<TouchableOpacity
+								onPress={() => navigation.navigate("DetailedBook", item)}
+							>
+								<Text>{ item.title }</Text>
+							</TouchableOpacity>
+						)}
+					/>
+
+					{/* <ScrollView horizontal={true} style={{ marginVertical: 20 }}>
 							{Object.keys(allBooks).map((element) => {
 								return (
 									<TouchableOpacity
@@ -82,13 +69,12 @@ export default function HomeScreen({ navigation, AppState }) {
 									</TouchableOpacity>
 								);
 							})}
-						</ScrollView>
-					</View>
+						</ScrollView> */}
 				</View>
-
-				<GlobalFooter AppState={AppState} navigation={navigation} />
 			</View>
-		</ScrollView>
+
+			<GlobalFooter AppState={AppState} navigation={navigation} />
+		</View>
 	);
 }
 
